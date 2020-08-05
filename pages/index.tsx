@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import Link from 'next/link'
+import { GetStaticProps } from 'next'
 import Layout, { siteTitle } from '../components/layout'
 import Date from '../components/date'
 import utilStyles from '../styles/utils.module.css'
@@ -18,7 +19,13 @@ export async function getStaticProps() {
 
 // Once this is set up, the allPostsData prop will be passed to the Home component. 
 
-export default function Home({ allPostsData }) {
+export default function Home({ allPostsData } : {
+  allPostsData: {
+    date: string
+    title: string
+    id: string
+  }[]
+}) {
   return (
     // Q: by simply adding home, does it mean it's set up to true ?
     <Layout home>

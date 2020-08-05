@@ -1,5 +1,6 @@
 // Pages that begin with [ and end with ] are dynamic pages in Next.js.
 import Head from 'next/head'
+import { GetStaticProps, GetStaticPaths } from 'next'
 import Layout from '../../components/layout'
 import Date from '../../components/date'
 import { getAllPostIds, getPostData } from '../../lib/posts'
@@ -26,7 +27,12 @@ export async function getStaticPaths() {
   }
 }
 
-export default function Post({ postData }) {
+export default function Post({ postData }: {
+  postData: {
+    title: string
+    date: string
+    contentHtml: string
+  }}) {
   return (
     <Layout>
       <Head>

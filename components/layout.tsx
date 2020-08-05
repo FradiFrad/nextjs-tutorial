@@ -11,7 +11,10 @@ export const siteTitle = 'Next.js via FradiFrad'
 // To use css modules, always import "styles" from a module, then className = {styles.className}
 // Boolean home prop which will adjust the size of the title and the image
 // Q: Why children? So Layout can encapsulate any React component?
-export default function Layout({ children, home }) {
+export default function Layout({ children, home } : {
+  children: React.ReactNode
+  home?: boolean
+}) {
   return (
     <div className={styles.container}>
       <Head>

@@ -1,5 +1,6 @@
 // In Next.js, you can add global CSS files by importing them from _app.js.
 //  You cannot import global CSS anywhere else.
+import {AppProps} from 'next/app'
 import '../styles/global.css'
 
 // This App component is the top-level component 
@@ -7,7 +8,7 @@ import '../styles/global.css'
 // You can use this App component to keep state 
 // when navigating between pages, for example.
 // Important: You need to restart the development server when you add _app.js.
-export default function App({ Component, pageProps }) {
+export default function App({ Component, pageProps } : AppProps) {
     return <Component {...pageProps} />
   }
   
