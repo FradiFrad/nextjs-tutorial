@@ -1,31 +1,35 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import { GetStaticProps } from 'next'
+import React, { useState } from 'react';
+
 import Layout, { siteTitle } from '../components/layout'
 import Date from '../components/date'
+import NewPlantModal, {showNewPlantModal} from '../components/new-plant-modal'
 import utilStyles from '../styles/utils.module.css'
-import { getSortedPostsData } from '../lib/posts'
+// import { getSortedPlantsData } from '../lib/plants'
 
 // getStaticProps fetches data before pre-rendering
-// data put in props allPostData
-export async function getStaticProps() {
-  const allPostsData = getSortedPostsData()
-  return {
-    props: {
-      allPostsData
-    }
-  }
-}
+// data put in props allPlantData
+// export async function getStaticProps() {
+//   const allPlantsData = getSortedPlantsData()
+//   return {
+//     props: {
+//       allPlantsData
+//     }
+//   }
+// }
 
-// Once this is set up, the allPostsData prop will be passed to the Home component. 
-
-export default function Home({ allPostsData } : {
-  allPostsData: {
-    date: string
-    title: string
-    id: string
-  }[]
+// Once this is set up, the allPlantsData prop will be passed to the Home component. 
+export default function Home( {
+  // allPlantsData: {
+  //   date: string
+  //   title: string
+  //   id: string
+  // }[]
 }) {
+  const [visible, setVisibility] = useState(false);
+  
   return (
     // Q: by simply adding home, does it mean it's set up to true ?
     <Layout home>
@@ -33,32 +37,20 @@ export default function Home({ allPostsData } : {
         <title>{siteTitle}</title>
       </Head>
       <section className={utilStyles.headingMd}>
-        <p>COUCOU COUCOU</p>
+        <p>Plants Manager</p>
         <p>
-          (This is a sample website - you’ll be building a site like this on{' '}
-          <a href="https://nextjs.org/learn">our Next.js tutorial</a>.)
+          Grow, love and cherish your plants in one app !
         </p>
       </section>
-      <section className={utilStyles.headingMd}>…</section>
-      <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
-        <h2 className={utilStyles.headingLg}>Blog</h2>
-        <ul className={utilStyles.list}>
-          {allPostsData.map(({ id, date, title }) => (
-            <li className={utilStyles.listItem} key={id}>
-            {/* To link to a page with dynamic routes, you need to use the Link component differently. 
-            You need to use [id] for href and the actual path (ssg-ssr) for the as prop. */}
-            <Link href="/posts/[id]" as={`/posts/${id}`}>
-              <a>{title}</a>
-            </Link>
-            <br />
-            <small className={utilStyles.lightText}>
-              <Date dateString={date} />
-            </small>
-          </li>
-          
-          ))}
-        </ul>
-      </section>
+
+    {/* ------------------------------- Add a plant ----------------------- */}
+      <button type="button" onClick={() => setVisibility(true)}>Add a plant</button>
+      { visible && <NewPlantModal></NewPlantModal>}
+
+    {/* Listing of the plants */}
+      
     </Layout>
   )
 }
+
+
